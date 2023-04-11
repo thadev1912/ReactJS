@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './App.css';
+import React from "react";
+import { publicRoutes } from './routes/index';
+import {BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+//import Trangchu from '../src/components/Test/Trangchu';
+import {DefaultLayout} from './components/layouts';
+//import Header from './components/layouts/Header';
+
+//import Footer from '../src/page/Footer';
+//import Content from '../src/page/Content/content';
+//import Sinhvien from './components/Sinhvien/sinhvien';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+    return (
+   <Router> 
+    <div className="App">    
+    <Routes>
+          {publicRoutes.map((route,index)=> {
+          const Layout=route.Layout || DefaultLayout;
+               const Page=route.component
+               return <Route key={index} path={route.path} element={<Layout><Page/></Layout>}/>
+          }
+          )}
+      </Routes>
+      
     </div>
-  );
+  </Router>
+
+    )
+  
+
 }
 
 export default App;
