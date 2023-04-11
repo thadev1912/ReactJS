@@ -3,7 +3,7 @@ class Slidebar extends React.Component {
     render() {
         return (
             <>
-              Slidebar
+               
             </>
         )
     }
