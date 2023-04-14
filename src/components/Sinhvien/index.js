@@ -1,13 +1,17 @@
 import React from "react";
 import axios from 'axios';
 import MyModal from '../Helper/modal';
+import Modal_edit from '../Helper/modal_edit';
 class Sinhvien extends React.Component {
     // Phần State <==> init state
     constructor(props) {
         super(props);
         this.state = {
             sinhvien: [],
-            isOpenModal:false
+            isOpenModal:false,
+            edit_id:{}, // tạo object state cho việc nhận id sửa
+                
+
         }
     }
     //Phần didmount <=>setState
@@ -32,6 +36,15 @@ class Sinhvien extends React.Component {
             isOpenModal:true
         })
     }
+    Edit = (data)=>
+    {
+       
+       //console.log('mã id cần chỉnh sửa:',data);
+        this.setState({
+            isOpenModal:true,
+            edit_id:data, // set lại state cho edit_id
+        })
+    }
     Toggle_Modal =()=>{
         this.setState({
             isOpenModal:!this.state.isOpenModal, //xét giá trị với giá trị đang có
@@ -39,6 +52,7 @@ class Sinhvien extends React.Component {
         })
    
     }
+    //Lưu data
      Store=async (data)=>{
     console.log('dữ liệu từ con',data);    
    let response = await axios.post('http://localhost:8080/sinhvien/store_api',data);
@@ -55,9 +69,37 @@ class Sinhvien extends React.Component {
     console.log('Thất bại!!!')
    }
    }
-   
+   //Cập nhật
+    Update=async(data)=>{
+        console.log('dữ liệu gửi lên update là:',data)
+        let response = await axios.put('http://localhost:8080/sinhvien/update_api',data);
+        if(response.status===200)
+   {
+    console.log('Cập nhật dữ liệu thành công!!!')
+    this.Toggle_Modal();
+    this.get_list();
 
+   }
+   else
+   {
+    console.log('Thất bại!!!')
+   }
+    }
+//Xóa dữ liệu
+ Delete=async(item)=>{
+    console.log('Muốn xóa id:',item)
+    let response = await axios.delete('http://localhost:8080/sinhvien/delete_api',{data:{id:item}});
+    if(response.status===200)
+   {
+    console.log('Xóa dữ liệu thành công!!!');   
+    this.get_list();
 
+   }
+   else
+   {
+    console.log('Thất bại!!!')
+   }
+ }
     render() {
         let sinhvien = this.state.sinhvien;
         console.log(sinhvien);
@@ -68,6 +110,16 @@ class Sinhvien extends React.Component {
             Toggle_Modal={this.Toggle_Modal}
             Store={this.Store}
             />
+            {/* hàm ho tro updatemount được dùng trong {} */}
+           {this.state.isOpenModal &&
+            <Modal_edit
+            isOpen={this.state.isOpenModal}
+            Toggle_Modal={this.Toggle_Modal}   
+            Edit_id={this.state.edit_id}
+            Update={this.Update}
+                
+            />
+           }  
                 <div className="card mt-5">
                     <div class="card-header bg-danger text-white">
                         <h3 class="font-weight-bold ">DANH SÁCH SINH VIÊN</h3>
@@ -89,7 +141,9 @@ class Sinhvien extends React.Component {
                             <tbody>
                             { sinhvien.map((item,index) => {
                 return (
-                  <tr>
+                  
+                  <tr> 
+                              
                   <td>{item.ma_sv}</td>
                   <td>{item.ten_sv}</td>
                   <td>{item.gioitinh_sv}</td>
@@ -98,9 +152,9 @@ class Sinhvien extends React.Component {
                   <td>{item.sdt_sv}</td>
                   <td>{item.ma_lop}</td>
                   <td> <button
-            onClick={this.Addnew}
+            onClick={()=>this.Edit(item)}
              >Sửa</button>||<button
-            onClick={this.Addnew}
+            onClick={()=>this.Delete(item.id)}
             >Xóa</button>   </td>
                   </tr>)
               })
