@@ -21,7 +21,7 @@ class MyModal extends React.Component {
     }
     //focus toggle
     toggle = () => {
-        this.props.Toggle_Modal(); //nhận props theo kiểu function
+        this.props.Toggle_Modal_addnew(); //nhận props theo kiểu function
     }
     hanleChangeInput =(e,id)=>{        
        let all_sate={...this.state}; // dùng để nhận toàn bộ object state
@@ -41,7 +41,7 @@ class MyModal extends React.Component {
         return (
             <>
 
-                <Modal isOpen={this.props.isOpen} toggle={this.toggle} >
+                <Modal isOpen={this.props.isOpen_addnew} toggle={this.toggle} >
                     <ModalHeader>THÊM MỚI THÔNG TIN</ModalHeader>
                     <ModalBody>
                         <div className="container">                            

@@ -2,7 +2,7 @@ import Trangchu from '../components/Test/Trangchu';
 import Chucnang from '../components/Test/Chucnang';
 import Lienhe from '../components/Test/Lienhe';
 import Sinhvien from '../components/Sinhvien';
-import ThemSinhvien from '../components/Sinhvien/them_sinhvien';
+
 //Public Routes
 const publicRoutes= [
     {   path:"/", component:Trangchu },
@@ -11,7 +11,7 @@ const publicRoutes= [
     {   path:"/lienhe", component:Lienhe },
     //Danh mục sinh vien
     {   path:"/sinhvien", component:Sinhvien },
-    {   path:"/sinhvien/themsinhvien", component:ThemSinhvien },
+
 ]
 const privateRoutes=[
 

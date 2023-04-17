@@ -1,14 +1,14 @@
 import React from "react";
 import axios from 'axios';
-import MyModal from '../Helper/modal';
-import Modal_edit from '../Helper/modal_edit';
+import Modal_addnew from './modal_addnew';
+import Modal_edit from './modal_edit';
 class Sinhvien extends React.Component {
     // Phần State <==> init state
     constructor(props) {
         super(props);
         this.state = {
             sinhvien: [],
-            isOpenModal:false,
+            isOpenModal_addnew:false,
             isOpenModal_edit:false,
             edit_id:{}, // tạo object state cho việc nhận id sửa
                 
@@ -34,7 +34,7 @@ class Sinhvien extends React.Component {
     Addnew =() =>
     {
         this.setState({
-            isOpenModal:true
+            isOpenModal_addnew:true
         })
     }
     Edit = (data)=>
@@ -48,9 +48,9 @@ class Sinhvien extends React.Component {
     }
 
     //Toggle Modal_AddNew
-    Toggle_Modal =()=>{
+    Toggle_Modal_addnew =()=>{
         this.setState({
-            isOpenModal:!this.state.isOpenModal, //xét giá trị với giá trị đang có
+            isOpenModal_addnew:!this.state.isOpenModal_addnew, //xét giá trị với giá trị đang có
             // bonus: isOpenModal(setState==='dark'? 'light':'dark' )  nghich đảo giá trị 
         })
    
@@ -71,7 +71,7 @@ class Sinhvien extends React.Component {
    if(response.status===200)
    {
     console.log('Thêm dữ liệu thành công!!!')
-    this.Toggle_Modal();
+    this.Toggle_Modal_addnew();
     this.get_list();
 
    }
@@ -116,9 +116,9 @@ class Sinhvien extends React.Component {
         console.log(sinhvien);
         return (
             <>
-            <MyModal
-            isOpen={this.state.isOpenModal}
-            Toggle_Modal={this.Toggle_Modal}
+            <Modal_addnew
+            isOpen_addnew={this.state.isOpenModal_addnew}
+            Toggle_Modal_addnew={this.Toggle_Modal_addnew}
             Store={this.Store}
             />
             {/* hàm ho tro updatemount được dùng trong {} */}
