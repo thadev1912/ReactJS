@@ -41,7 +41,7 @@ class Modal_edit extends React.Component {
     }
     //focus toggle
     toggle = () => {
-        this.props.Toggle_Modal(); //nhận props theo kiểu function
+        this.props.Toggle_Modal_edit(); //nhận props theo kiểu function
     }
     hanleChangeInput =(e,id)=>{        
        let all_sate={...this.state}; // dùng để nhận toàn bộ object state
@@ -65,7 +65,7 @@ class Modal_edit extends React.Component {
             
             <>
 
-                <Modal isOpen={this.props.isOpen} toggle={this.toggle} >
+                <Modal isOpen={this.props.isOpen_edit} toggle={this.toggle} >
                     <ModalHeader>CHỈNH SỬA THÔNG TIN</ModalHeader>
                     <ModalBody>
                         <div className="container">                            

@@ -9,6 +9,7 @@ class Sinhvien extends React.Component {
         this.state = {
             sinhvien: [],
             isOpenModal:false,
+            isOpenModal_edit:false,
             edit_id:{}, // tạo object state cho việc nhận id sửa
                 
 
@@ -41,13 +42,23 @@ class Sinhvien extends React.Component {
        
        //console.log('mã id cần chỉnh sửa:',data);
         this.setState({
-            isOpenModal:true,
+            isOpenModal_edit:true,
             edit_id:data, // set lại state cho edit_id
         })
     }
+
+    //Toggle Modal_AddNew
     Toggle_Modal =()=>{
         this.setState({
             isOpenModal:!this.state.isOpenModal, //xét giá trị với giá trị đang có
+            // bonus: isOpenModal(setState==='dark'? 'light':'dark' )  nghich đảo giá trị 
+        })
+   
+    }
+     //Toggle Modal_Edit
+     Toggle_Modal_edit =()=>{
+        this.setState({
+            isOpenModal_edit:!this.state.isOpenModal_edit, //xét giá trị với giá trị đang có
             // bonus: isOpenModal(setState==='dark'? 'light':'dark' )  nghich đảo giá trị 
         })
    
@@ -76,7 +87,7 @@ class Sinhvien extends React.Component {
         if(response.status===200)
    {
     console.log('Cập nhật dữ liệu thành công!!!')
-    this.Toggle_Modal();
+    this.Toggle_Modal_edit();
     this.get_list();
 
    }
@@ -111,10 +122,10 @@ class Sinhvien extends React.Component {
             Store={this.Store}
             />
             {/* hàm ho tro updatemount được dùng trong {} */}
-           {this.state.isOpenModal &&
+           {this.state.isOpenModal_edit &&
             <Modal_edit
-            isOpen={this.state.isOpenModal}
-            Toggle_Modal={this.Toggle_Modal}   
+            isOpen_edit={this.state.isOpenModal_edit}
+            Toggle_Modal_edit={this.Toggle_Modal_edit}   
             Edit_id={this.state.edit_id}
             Update={this.Update}
                 
