@@ -1,118 +1,111 @@
-import React from "react";
+import React ,{useState,useEffect}from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import _ from 'lodash'; //hỗ trợ check sự tồn tại 
-class Modal_edit extends React.Component {
-    // Phần State <==> init state
-    constructor(props) {
-        super(props);
-        this.state = {
-            id:'',
-            ma_sv:'',
-            ten_sv:'',
-            gioitinh_sv:'',
-            ngaysinh_sv:'',
-            diachi_sv:'', 
-            sdt_sv:'',
-            ma_lop:'',
-           
-
-        }
-    }
-    //setstate
-    componentDidMount() {
-        let data=this.props.Edit_id;   
-       
-        if(data && !_.isEmpty(data)) {/* hàm ho tro updatemount được dùng trong {} */}
-
+const Modal_edit = (props) => {
+    const {isOpen_edit,data_edit,Toggle_Modal_edit,Update}=props;    
+    const [sinhvien, setsinhvien] = useState({
+        id:'',
+        ma_sv: '',
+        ten_sv: '',
+        gioitinh_sv: '',
+        ngaysinh_sv: '',
+        diachi_sv: '',
+        sdt_sv: '',
+        ma_lop: ''
+    })
+    let data= {data_edit};
+    useEffect(()=>{
+    async function data_edit()
+    {
+        
+      
+        console.log('id nhận từ prop cha:',data);
+        if(data && !_.isEmpty(data))
         {
-            //console.log('state nhận từ prop cha:',data);  
-           this.setState({
-            id:data.id,
-            ma_sv:data.ma_sv,
-            ten_sv:data.ten_sv,
-            gioitinh_sv:data.gioitinh_sv,
-            ngaysinh_sv:data.ngaysinh_sv,
-            diachi_sv:data.diachi_sv, 
-            sdt_sv:data.sdt_sv,
-            ma_lop:data.ma_lop,
            
-           })
+          setsinhvien({
+                id:data.data_edit.id,
+                ma_sv: data.data_edit.ma_sv,
+                ten_sv: data.data_edit.ten_sv,
+                gioitinh_sv: data.data_edit.gioitinh_sv,
+                ngaysinh_sv: data.data_edit.ngaysinh_sv,
+                diachi_sv: data.data_edit.diachi_sv,
+                sdt_sv: data.data_edit.sdt_sv,
+                ma_lop: data.data_edit.ma_lop,
+            });
         }
     }
-    //focus toggle
-    toggle = () => {
-        this.props.Toggle_Modal_edit(); //nhận props theo kiểu function
-    }
-    hanleChangeInput =(e,id)=>{        
-       let all_sate={...this.state}; // dùng để nhận toàn bộ object state
-       all_sate[id]=e.target.value;
-       this.setState({
-        ...all_sate
-       },()=> {console.log(this.state);})
-       
-    }
+    data_edit();
+},[])
+       //focus toggle
     
-    handle_Update=()=>{
-       // this.props.Store(this.state);    
-        console.log('dữ liệu update là:',this.state);
-        this.props.Update(this.state);
+    const toggle = () => {
+       return Toggle_Modal_edit(); //nhận props theo kiểu function
     }
- 
-    render() {
-       
-        //console.log('dữ liệu edit từ cha:',data);
-        return (
+    const hanleChangeInput = (e) => {
+        const name=e.target.name;
+        const value=e.target.value;
+        setsinhvien((prev)=>{
+         return {...prev,[name]:value}
+        })
+        
+     }  
+     const handle_Update=()=>{
+        // this.props.Store(this.state);    
+         console.log('dữ liệu cần update là:',sinhvien);
+         Update(sinhvien);
+     }
+  
+    return (
             
-            <>
+        <>
 
-                <Modal isOpen={this.props.isOpen_edit} toggle={this.toggle} >
-                    <ModalHeader>CHỈNH SỬA THÔNG TIN</ModalHeader>
-                    <ModalBody>
-                        <div className="container">                            
-                                <div className="col-12 form-group">
-                                    <label>Mã Sinh Viên</label>
-                                    <input className="form-control" type="text" onChange={(e)=>this.hanleChangeInput(e,'id')} value={this.state.id} hidden></input>
-                                    <input className="form-control" type="text"
-                                    onChange={(e)=>this.hanleChangeInput(e,'ma_sv')} value={this.state.ma_sv}></input>
-                                </div>                       
-                                <div className="col-12 form-group">
-                                    <label>Tên Sinh Viên</label>
-                                    <input className="form-control" type="text" onChange={(e)=>this.hanleChangeInput(e,'ten_sv')} value={this.state.ten_sv}></input>
-                                </div>
-                                <div className="col-12 form-group">
-                                    <label>Giới Tính</label>
-                                    <input className="form-control" type="text" onChange={(e)=>this.hanleChangeInput(e,'gioitinh_sv')} value={this.state.gioitinh_sv}></input>
-                                </div>
-                                <div className="col-12 form-group">
-                                    <label>Ngày Sinh</label>
-                                    <input className="form-control" type="date" onChange={(e)=>this.hanleChangeInput(e,'ngaysinh_sv')} value={this.state.ngaysinh_sv}></input>
-                                </div>
-                                <div className="col-12 form-group">
-                                    <label>Địa Chỉ</label>
-                                    <input className="form-control" type="text" onChange={(e)=>this.hanleChangeInput(e,'diachi_sv')} value={this.state.diachi_sv}></input>
-                                </div>
-                                <div className="col-12 form-group">
-                                    <label>Số Điện Thoại </label>
-                                    <input className="form-control" type="text" onChange={(e)=>this.hanleChangeInput(e,'sdt_sv')} value={this.state.sdt_sv}></input>
-                                </div>
-                                <div className="col-12 form-group">
-                                    <label>Lớp Học</label>
-                                    <input className="form-control" type="text" onChange={(e)=>this.hanleChangeInput(e,'ma_lop')} value={this.state.ma_lop}></input>
-                                </div>
+            <Modal isOpen={isOpen_edit} toggle={toggle} >
+                <ModalHeader>CHỈNH SỬA THÔNG TIN</ModalHeader>
+                <ModalBody>
+                    <div className="container">                        
                           
+                            <div className="col-12 form-group">
+                            <label>Mã Sinh Viên</label>
+                            <input className="form-control" type="text" name="ma_sv" onChange={hanleChangeInput} value={sinhvien.id} hidden></input>
+                            <input className="form-control" type="text" name="ma_sv" onChange={hanleChangeInput} value={sinhvien.ma_sv} ></input>
                         </div>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="primary" onClick={this.handle_Update}>
-                            Lưu Lại
-                        </Button>{' '}
-                        <Button color="danger" onClick={this.toggle}>
-                            Thoát
-                        </Button>
-                    </ModalFooter>
-                </Modal>
-            </>
-        )
-    }
+                        <div className="col-12 form-group">
+                            <label>Tên Sinh Viên</label>
+                            <input className="form-control" type="text" name="ten_sv" onChange={hanleChangeInput} value={sinhvien.ten_sv}></input>
+                        </div>
+                        <div className="col-12 form-group">
+                            <label>Giới Tính</label>
+                            <input className="form-control" type="text" name="gioitinh_sv" onChange={hanleChangeInput} value={sinhvien.gioitinh_sv}></input>
+                        </div>
+                        <div className="col-12 form-group">
+                            <label>Ngày Sinh</label>
+                            <input className="form-control" type="text" name="ngaysinh_sv" onChange={hanleChangeInput} value={sinhvien.ngaysinh_sv}></input>
+                        </div>
+                        <div className="col-12 form-group">
+                            <label>Địa Chỉ</label>
+                            <input className="form-control" type="text" name="diachi_sv" onChange={hanleChangeInput} value={sinhvien.diachi_sv}></input>
+                        </div>
+                        <div className="col-12 form-group">
+                            <label>Số Điện Thoại</label>
+                            <input className="form-control" type="text" name="sdt_sv" onChange={hanleChangeInput} value={sinhvien.sdt_sv}></input>
+                        </div>
+                        <div className="col-12 form-group">
+                            <label>Lớp Học</label>
+                            <input className="form-control" type="text" name="ma_lop" onChange={hanleChangeInput} value={sinhvien.ma_lop}></input>
+                        </div>                      
+                    </div>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={handle_Update}>
+                        Lưu Lại
+                    </Button>
+                    <Button color="danger" onClick={toggle}>
+                        Thoát
+                    </Button>
+                </ModalFooter>
+            </Modal>
+        </>
+    )
 }
 export default Modal_edit

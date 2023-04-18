@@ -15,6 +15,7 @@ class Sinhvien extends React.Component {
 
         }
     }
+  
     //Phần didmount <=>setState
     async componentDidMount() {
         this.get_list();
@@ -119,7 +120,7 @@ class Sinhvien extends React.Component {
             <Modal_addnew
             isOpen_addnew={this.state.isOpenModal_addnew}
             Toggle_Modal_addnew={this.Toggle_Modal_addnew}
-            Store={this.Store}
+            Store={this.Store}  //truyền theo kiểu function
             />
             {/* hàm ho tro updatemount được dùng trong {} */}
            {this.state.isOpenModal_edit &&
