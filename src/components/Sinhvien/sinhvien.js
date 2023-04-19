@@ -1,10 +1,12 @@
 import React,{useEffect, useState} from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import Modal_addnew from './modal_addnew';
 import Modal_edit from './modal_edit';
 const Sinhvien=()=>
 {
     const[sinhvien,setsinhvien] = useState([]);
+    const navigate=useNavigate();
     const [refreshKey, setRefreshKey] = useState(0); // hỗ trợ load 1 lần sau khi updatem hoặc add new
     const[isOpenModal_addnew,set_isOpenModal_addnew]=useState(false);
     const[isOpenModal_edit,set_isOpenModal_edit]=useState(false);
@@ -12,7 +14,10 @@ const Sinhvien=()=>
     
     useEffect(()=>{
         async function get_list() {           
-              
+            if(!localStorage.getItem('token'))
+            {
+                navigate('/login');
+            }
                 let response = await axios.get(`http://localhost:8080/sinhvien/get_api`);
                 if (response.status === 200)
                  {                  
