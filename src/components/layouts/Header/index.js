@@ -16,10 +16,13 @@ class Header extends React.Component {
         <Link className="navbar-brand" to="/sinhvien">Sinhvien</Link>
         </li>
         <li className="nav-item">
-        <Link className="navbar-brand" to="/chucnang">Chức Năng</Link>
+        <Link className="navbar-brand" to="/reducer1">Reducer1</Link>
         </li>
         <li className="nav-item">
-        <Link className="navbar-brand" to="/lienhe">Liên Hệ</Link>
+        <Link className="navbar-brand" to="/reducer2">Reducer2</Link>
+        </li>
+        <li className="nav-item">
+        <Link className="navbar-brand" to="/redux">Redux</Link>
         </li>
       </ul>
       

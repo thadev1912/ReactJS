@@ -1,14 +1,16 @@
 import Login from '../components/auth/login';
-import Chucnang from '../components/Test/Chucnang';
-import Lienhe from '../components/Test/Lienhe';
+import Redux from '../components/Test/Train_Hook/redux';
+import Reducer1 from '../components/Test/Train_Hook/reducer_bt1';
+import Reducer2 from '../components/Test/Train_Hook/reducer_bt2';
 import Sinhvien from '../components/Sinhvien/sinhvien';
 
 //Public Routes
 const publicRoutes= [
     {   path:"/", component:Login },
     {   path:"/login", component:Login },
-    {   path:"/chucnang", component:Chucnang },
-    {   path:"/lienhe", component:Lienhe },
+    {   path:"/reducer1", component:Reducer1 },
+    {   path:"/reducer2", component:Reducer2 },
+    {   path:"/redux", component:Redux },
     //Danh mục sinh vien
     {   path:"/sinhvien", component:Sinhvien },
 
