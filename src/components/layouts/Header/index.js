@@ -6,7 +6,7 @@ class Header extends React.Component {
             <>
              <nav className="navbar navbar-expand-lg navbar-light bg-primary">
   <div className="container">
-    <Link className="navbar-brand" to="/login">Đăng nhập</Link>
+  
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon"></span>
     </button>
@@ -24,11 +24,19 @@ class Header extends React.Component {
         <li className="nav-item">
         <Link className="navbar-brand" to="/redux">Redux</Link>
         </li>
+        
       </ul>
-      
+      <li className="nav-item nav-link">
+      <Link className="navbar-brand" to="/login">Đăng nhập</Link>
+      </li>
+       <li className="nav-item nav-link">
+        <span className="" >Hi...</span>
+        <Link className="navbar-brand" to="/redux">Đăng Xuất</Link>
+        </li>
     </div>
   </div>
 </nav>
+
     
             </>
         )

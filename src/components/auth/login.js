@@ -1,8 +1,11 @@
 import React, {useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginFail, loginSuccess } from "../../redux/authSlice";
 const Login = () => {
     const navigate=useNavigate();
+    const dispatch=useDispatch();
     const [login, setlogin] = useState({
         username: '',
         password: '',
@@ -18,20 +21,30 @@ const Login = () => {
     }
     console.log('giá trị nhập vào là',login);
     const handleLogin=async()=>{
-         
+        
+         try{
+            let res= await axios.post('http://localhost:8080/user/xulydangnhap',login);
+            if(res.data)
+            {
+                console.log('Xin chào',res.data.data.username);
+                 alert('Đăng nhập thành công!!!');
+                  dispatch(loginSuccess(res.data));
+                  navigate('/sinhvien');
+            }
+            else
+            {
+                console.log('Đăng nhập thất bại');
+                alert('Đăng nhập thất bại!!!');
+            }
+         }
+         catch(err)
+         {
+            
+            
+            dispatch(loginFail);
+         }
         // console.log('giá trị gửi lên server',data);
-        let res= await axios.post('http://localhost:8080/user/xulydangnhap',login);
-         console.log(res.data.token);               
-         if(res.data.status ===200)
-         {
-            alert('Đăng nhập thành công!!!'); 
-            localStorage.setItem('token',res.data.token);        
-            navigate('/sinhvien');
-         }
-         else
-         {
-           alert('Vui lòng kiểm tra lại tài khoản hoặc mật khẩu');
-         }
+        
 
          
     }

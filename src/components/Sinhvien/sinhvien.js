@@ -13,11 +13,8 @@ const Sinhvien=()=>
     const [data_edit,setdata_edit]=useState({})
     
     useEffect(()=>{
-        async function get_list() {           
-            if(!localStorage.getItem('token'))
-            {
-                navigate('/login');
-            }
+        async function get_list() {          
+          
                 let response = await axios.get(`http://localhost:8080/sinhvien/get_api`);
                 if (response.status === 200)
                  {                  

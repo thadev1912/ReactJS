@@ -10,7 +10,7 @@ import React,{useReducer,useRef} from "react";
 //3. Reducer
 //4. Dispatch
 const Reducer2 =() =>{
-  const focus_input =useRef();
+  const focus_input =useRef(); // dùng ref để truy xuất đến phần tử Dom
     //InitSate
     const InitSate={
       language:'',
