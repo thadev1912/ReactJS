@@ -1,8 +1,33 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
-//add reducer vào store để lưu trữ
-export default configureStore({
-    reducer:{
-    auth:authReducer,  // add reducer vào 
-    },
-}); 
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from 'redux-persist';
+  import storage from 'redux-persist/lib/storage';
+  const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+  }
+  //tao rootReducer từ reducer mặc định trong file configStore ==> mục đích để giữ cái reducer mà bạn muốn giữ
+  const rootReducer=combineReducers({
+    auth:authReducer,
+  })
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
+  export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  })
+  export let persistor = persistStore(store);

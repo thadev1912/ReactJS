@@ -1,7 +1,11 @@
 import React from "react";
 import { Link} from 'react-router-dom';
-class Header extends React.Component {
-    render() {
+import Logout from "../../auth/logout";
+import { useSelector } from "react-redux";
+const Header =() =>{
+ 
+  const User=useSelector((state)=>state.auth.login.user?.data.username);  //? để tránh trường hợp khi accessToken null
+  console.log('tên user là',User);
         return (
             <>
              <nav className="navbar navbar-expand-lg navbar-light bg-primary">
@@ -26,12 +30,14 @@ class Header extends React.Component {
         </li>
         
       </ul>
-      <li className="nav-item nav-link">
+      {/* <li className="nav-item nav-link">
       <Link className="navbar-brand" to="/login">Đăng nhập</Link>
-      </li>
+      </li> */}
+    
        <li className="nav-item nav-link">
-        <span className="" >Hi...</span>
-        <Link className="navbar-brand" to="/redux">Đăng Xuất</Link>
+       {User ?  <Logout  user={User} />  :  <Link className="navbar-brand" to="/login">Đăng nhập</Link>
+      }
+      
         </li>
     </div>
   </div>
@@ -41,5 +47,5 @@ class Header extends React.Component {
             </>
         )
     }
-}
+  
 export default Header
