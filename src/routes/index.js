@@ -3,6 +3,7 @@ import Redux from '../components/Test/Train_Hook/redux';
 import Reducer1 from '../components/Test/Train_Hook/reducer_bt1';
 import Reducer2 from '../components/Test/Train_Hook/reducer_bt2';
 import Sinhvien from '../components/Sinhvien/sinhvien';
+import Phongban from '../components/Phongban/phongban';
 
 //Public Routes
 const publicRoutes= [
@@ -13,6 +14,7 @@ const publicRoutes= [
     {   path:"/redux", component:Redux },
     //Danh mục sinh vien
     {   path:"/sinhvien", component:Sinhvien },
+    {   path:"/phongban", component:Phongban },
 
 ]
 const privateRoutes=[

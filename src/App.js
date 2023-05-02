@@ -1,5 +1,5 @@
 
-import './App.css';
+import './App.scss';
 import React from "react";
 import { publicRoutes } from './routes/index';
 import {BrowserRouter as Router,Routes,Route } from 'react-router-dom';
