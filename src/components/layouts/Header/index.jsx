@@ -26,9 +26,14 @@ const Header =() =>{
         <Link className="navbar-brand text-white" to="/chucvu">Chức Vụ</Link>
         </li>
         <li className="nav-item">
-        <Link className="navbar-brand text-white" to="/redux">Redux</Link>
+        <Link className="navbar-brand text-white" to="/baohiem">Bảo Hiểm</Link>
         </li>
-        
+        <li className="nav-item">
+        <Link className="navbar-brand text-white" to="/hopdong">Hợp Đồng</Link>
+        </li>
+        <li className="nav-item">
+        <Link className="navbar-brand text-white" to="/nhanvien">Nhân Viên</Link>
+        </li>
       </ul>
       {/* <li className="nav-item nav-link">
       <Link className="navbar-brand" to="/login">Đăng nhập</Link>
