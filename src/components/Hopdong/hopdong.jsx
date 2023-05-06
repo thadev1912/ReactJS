@@ -5,6 +5,7 @@ import ModalEdit from './modalEdit';
 const Hopdong = () => {
     //Delcare states
     const [hopdong, setHopdong] = useState([]);
+    const [errorArrs, setErrorArrs] = useState([]);
     const [selectLoaihd,setSelectLoaihd]=useState([]);
     const [selectTinhtrang,setSelectTinhtrang]=useState([]);
     const [hopdongId,setHopdongId]=useState([]);
@@ -28,13 +29,15 @@ const Hopdong = () => {
     //console.log('dữ liệu api loại hợp đồng là',selectLoaihd)
     //Action
     const handleAdd = () => {
-        setIsOpenModal(current => !current)
+        setIsOpenModal(current => !current);
+        setErrorArrs('');
     }
     const Toggle = () => {
         setIsOpenModal(current => !current)
     }
     const ToggleEdit = () => {
-        setIsOpenModalEdit(current => !current)
+        setIsOpenModalEdit(current => !current);
+        setErrorArrs('');
     }
     //Store Data
     const Store = async (data) => {
@@ -48,7 +51,8 @@ const Hopdong = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data.errors);
             }
 
         }
@@ -79,7 +83,8 @@ const Hopdong = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                console.log(err.response.data.errors);
+                setErrorArrs(err.response.data.errors);
             }
 
         }
@@ -113,7 +118,8 @@ const Hopdong = () => {
                 Toggle={Toggle}   //truyền sate của nó nhe
                 Store={Store} 
                 selectLoaihd={selectLoaihd}  
-                selectTinhtrang={selectTinhtrang}               
+                selectTinhtrang={selectTinhtrang} 
+                errorArrs={errorArrs}                  
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -123,6 +129,7 @@ const Hopdong = () => {
             Update={Update} 
             selectLoaihd={selectLoaihd}  
             selectTinhtrang={selectTinhtrang}  
+            errorArrs={errorArrs}    
             />
              }
             <div className="card-header bg-danger text-white">

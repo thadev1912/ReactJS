@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ModalAdd from './modalAdd';
 import ModalEdit from './modalEdit';
+import { wait } from '@testing-library/user-event/dist/utils';
 const Baohiem = () => {
     //Delcare states
     const [baohiem, setBaohiem] = useState([]);
@@ -16,7 +17,7 @@ const Baohiem = () => {
     //Use Effect
     useEffect(() => {
         const getList = async () => {
-            let res = await axios.get(`http://127.0.0.1:8000/api/baohiem?page=5`);
+            let res = await axios.get(`http://127.0.0.1:8000/api/baohiem?page=4`);
             if (res) {
                 //console.log(res.baohiem);
                 setBaohiem(res.data.baohiem.data);
@@ -53,7 +54,7 @@ const Baohiem = () => {
 
         catch (err) {
             if (err.response) {
-                //console.log('lỗi valiated bao hiểm là:',err.response.data.errors);
+                //console.log(err.response.data);
                 setErrorArrs(err.response.data.errors);
             }
 
@@ -121,8 +122,8 @@ const Baohiem = () => {
                 Store={Store}  
                 selectNoiKham={selectNoiKham}  
                 selectNoiCap={selectNoiCap}  
-                selectLoaibhxh={selectLoaibhxh}     
-                errorArrs={errorArrs}       
+                selectLoaibhxh={selectLoaibhxh}  
+                errorArrs={errorArrs}          
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -133,7 +134,7 @@ const Baohiem = () => {
             selectNoiKham={selectNoiKham}  
             selectNoiCap={selectNoiCap} 
             selectLoaibhxh={selectLoaibhxh} 
-            errorArrs={errorArrs} 
+            errorArrs={errorArrs}   
             />
              }
             <div className="card-header bg-danger text-white">

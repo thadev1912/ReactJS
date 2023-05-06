@@ -5,6 +5,7 @@ import ModalEdit from './modalEdit';
 const Nhanvien = () => {
     //Delcare states
     const [nhanvien, setNhanvien] = useState([]);
+    const [errorArrs, setErrorArrs] = useState([]);
     const [selectTrinhdo,setSelectTrinhdo]=useState([]);
     const [selectTrangthai,setSelectTrangthai]=useState([]);
     const [selectPhongban,setSelectPhongban]=useState([]);
@@ -16,7 +17,7 @@ const Nhanvien = () => {
     //Use Effect
     useEffect(() => {
         const getList = async () => {
-            let res = await axios.get(`http://127.0.0.1:8000/api/nhanvien?page=2`);
+            let res = await axios.get(`http://127.0.0.1:8000/api/nhanvien?page=3`);
             if (res) {
                 console.log(res.data);
                 setNhanvien(res.data.nhanvien.data);
@@ -32,13 +33,15 @@ const Nhanvien = () => {
     console.log('giá trị select phongban nhận được là',selectPhongban);
     //Action
     const handleAdd = () => {
-        setIsOpenModal(current => !current)
+        setIsOpenModal(current => !current);
+        setErrorArrs('');
     }
     const Toggle = () => {
         setIsOpenModal(current => !current)
     }
     const ToggleEdit = () => {
-        setIsOpenModalEdit(current => !current)
+        setIsOpenModalEdit(current => !current);
+        setErrorArrs('');
     }
     //Store Data
     const Store = async (data) => {
@@ -52,7 +55,8 @@ const Nhanvien = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data.errors);
             }
 
         }
@@ -83,7 +87,8 @@ const Nhanvien = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data.errors);
             }
 
         }
@@ -103,7 +108,8 @@ const Nhanvien = () => {
   
           catch (err) {
               if (err.response) {
-                  console.log(err.response.data);
+                  //console.log(err.response.data);
+                 
               }
   
           }
@@ -119,7 +125,8 @@ const Nhanvien = () => {
                 selectTrangthai={selectTrangthai}
                 selectTrinhdo={selectTrinhdo} 
                 selectChucvu={selectChucvu}
-                selectPhongban={selectPhongban}              
+                selectPhongban={selectPhongban}     
+                errorArrs={errorArrs}            
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -130,7 +137,8 @@ const Nhanvien = () => {
             selectTrangthai={selectTrangthai}
             selectTrinhdo={selectTrinhdo}      
             selectChucvu={selectChucvu}
-            selectPhongban={selectPhongban}            
+            selectPhongban={selectPhongban}    
+            errorArrs={errorArrs}           
             />
              }
             <div className="card-header bg-danger text-white">
