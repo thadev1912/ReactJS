@@ -5,6 +5,7 @@ import ModalEdit from './modalEdit';
 const Phongban = () => {
     //Delcare states
     const [phongban, setPhongban] = useState([]);
+    const [errorArrs, setErrorArrs] = useState([]);
     const [phongbanId,setPhongbanId]=useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -22,13 +23,15 @@ const Phongban = () => {
     }, [refreshKey])
     //Action
     const handleAdd = () => {
-        setIsOpenModal(current => !current)
+        setIsOpenModal(current => !current);
+        setErrorArrs('');
     }
     const Toggle = () => {
         setIsOpenModal(current => !current)
     }
     const ToggleEdit = () => {
-        setIsOpenModalEdit(current => !current)
+        setIsOpenModalEdit(current => !current);
+        setErrorArrs('');
     }
     //Store Data
     const Store = async (data) => {
@@ -37,12 +40,14 @@ const Phongban = () => {
             let response = await axios.post('http://127.0.0.1:8000/api/phongban/store', data);
             Toggle(); 
             setRefreshKey(oldKey => oldKey +1)
-            console.log(response.data);
+            //console.log(response.data);
         }
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data);
+
             }
 
         }
@@ -73,7 +78,8 @@ const Phongban = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data);
             }
 
         }
@@ -105,7 +111,8 @@ const Phongban = () => {
             <ModalAdd
                 isOpenModal={isOpenModal}
                 Toggle={Toggle}   //truyền sate của nó nhe
-                Store={Store}                
+                Store={Store}   
+                errorArrs={errorArrs}             
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -113,6 +120,7 @@ const Phongban = () => {
             ToggleEdit={ToggleEdit}
             phongbanId={phongbanId}
             Update={Update} 
+            errorArrs={errorArrs}    
             />
              }
             <div className="card-header bg-danger text-white">

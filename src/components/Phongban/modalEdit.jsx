@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import _ from 'lodash'; //hỗ trợ check sự tồn tại 
 const ModalEdit = (props) => {
-    const { isOpenModalEdit, phongbanId, ToggleEdit,Update } = props;
+    const { isOpenModalEdit, phongbanId, ToggleEdit,Update,errorArrs } = props;
 
     const [phongban, setPhongBan] = useState({
         id: '',
@@ -59,10 +59,16 @@ const ModalEdit = (props) => {
                             <label>Mã Phòng Ban</label>
                             <input className="form-control" type="text" name="id" onChange={handleChangeInput} value={phongban.id} hidden  ></input>
                             <input className="form-control" type="text" name='ma_pb' onChange={handleChangeInput} value={phongban.ma_pb}></input>
+                            <span className='text-danger'>
+                   {errorArrs.ma_pb}
+                </span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Tên Phòng Ban</label>
                             <input className="form-control" type="text" name='ten_pb' onChange={handleChangeInput} value={phongban.ten_pb}></input>
+                            <span className='text-danger'>
+                   {errorArrs.ten_pb}
+                </span>
                         </div>
 
                     </div>

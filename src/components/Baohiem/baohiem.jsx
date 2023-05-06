@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ModalAdd from './modalAdd';
 import ModalEdit from './modalEdit';
-import { wait } from '@testing-library/user-event/dist/utils';
 const Baohiem = () => {
     //Delcare states
     const [baohiem, setBaohiem] = useState([]);
+    const [errorArrs, setErrorArrs] = useState([]);
     const [selectNoiKham,setselectNoiKham]=useState([]);
     const [selectNoiCap,setselectNoiCap]=useState([]);
     const [selectLoaibhxh,setselectLoaibhxh]=useState([]);
@@ -16,7 +16,7 @@ const Baohiem = () => {
     //Use Effect
     useEffect(() => {
         const getList = async () => {
-            let res = await axios.get(`http://127.0.0.1:8000/api/baohiem?page=4`);
+            let res = await axios.get(`http://127.0.0.1:8000/api/baohiem?page=5`);
             if (res) {
                 //console.log(res.baohiem);
                 setBaohiem(res.data.baohiem.data);
@@ -31,13 +31,15 @@ const Baohiem = () => {
     console.log('danh sách của noikham là:',selectNoiKham);
     //Action
     const handleAdd = () => {
-        setIsOpenModal(current => !current)
+        setIsOpenModal(current => !current);
+        setErrorArrs('');
     }
     const Toggle = () => {
         setIsOpenModal(current => !current)
     }
     const ToggleEdit = () => {
-        setIsOpenModalEdit(current => !current)
+        setIsOpenModalEdit(current => !current);
+        setErrorArrs('');
     }
     //Store Data
     const Store = async (data) => {
@@ -51,7 +53,8 @@ const Baohiem = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log('lỗi valiated bao hiểm là:',err.response.data.errors);
+                setErrorArrs(err.response.data.errors);
             }
 
         }
@@ -82,7 +85,8 @@ const Baohiem = () => {
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data.errors);
             }
 
         }
@@ -117,7 +121,8 @@ const Baohiem = () => {
                 Store={Store}  
                 selectNoiKham={selectNoiKham}  
                 selectNoiCap={selectNoiCap}  
-                selectLoaibhxh={selectLoaibhxh}            
+                selectLoaibhxh={selectLoaibhxh}     
+                errorArrs={errorArrs}       
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -128,6 +133,7 @@ const Baohiem = () => {
             selectNoiKham={selectNoiKham}  
             selectNoiCap={selectNoiCap} 
             selectLoaibhxh={selectLoaibhxh} 
+            errorArrs={errorArrs} 
             />
              }
             <div className="card-header bg-danger text-white">

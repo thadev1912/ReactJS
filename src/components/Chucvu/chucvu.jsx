@@ -5,6 +5,7 @@ import ModalEdit from './modalEdit';
 const Chucvu = () => {
     //Delcare states
     const [chucvu, setChucvu] = useState([]);
+    const [errorArrs, setErrorArrs] = useState([]);
     const [chucvuId,setChucvuId]=useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -22,13 +23,15 @@ const Chucvu = () => {
     }, [refreshKey])
     //Action
     const handleAdd = () => {
-        setIsOpenModal(current => !current)
+        setIsOpenModal(current => !current);
+        setErrorArrs('');  
     }
     const Toggle = () => {
         setIsOpenModal(current => !current)
     }
     const ToggleEdit = () => {
-        setIsOpenModalEdit(current => !current)
+        setIsOpenModalEdit(current => !current);
+        setErrorArrs('');        
     }
     //Store Data
     const Store = async (data) => {
@@ -37,17 +40,19 @@ const Chucvu = () => {
             let response = await axios.post('http://127.0.0.1:8000/api/chucvu/store', data);
             Toggle(); 
             setRefreshKey(oldKey => oldKey +1)
-            console.log(response.data);
+            //console.log(response.data);
         }
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data);
             }
 
         }
 
     }
+    console.log('Giá trị của validate là:',errorArrs);
       //Edit Data
       const handleEdit =async(data)=>
       {        
@@ -67,13 +72,15 @@ const Chucvu = () => {
             console.log(url);
             let response = await axios.put(url,data);
             ToggleEdit();    
-            setRefreshKey(oldKey => oldKey +1)                       
+            setRefreshKey(oldKey => oldKey +1);
+                     
            
         }
 
         catch (err) {
             if (err.response) {
-                console.log(err.response.data);
+                //console.log(err.response.data);
+                setErrorArrs(err.response.data);
             }
 
         }
@@ -105,7 +112,8 @@ const Chucvu = () => {
             <ModalAdd
                 isOpenModal={isOpenModal}
                 Toggle={Toggle}   //truyền sate của nó nhe
-                Store={Store}                
+                Store={Store} 
+                errorArrs={errorArrs}               
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -113,6 +121,7 @@ const Chucvu = () => {
             ToggleEdit={ToggleEdit}
             chucvuId={chucvuId}
             Update={Update} 
+            errorArrs={errorArrs}
             />
              }
             <div className="card-header bg-danger text-white">

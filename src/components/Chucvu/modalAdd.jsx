@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const ModalAdd = (props) => {
-  const {isOpenModal,Toggle,Store}=props;
+  const {isOpenModal,Toggle,Store,errorArrs}=props;
   const [chucvu,setChucvu]=useState({})
   
   //Functions
@@ -32,10 +32,16 @@ const ModalAdd = (props) => {
             <div className="col-12 form-group">
                 <label>Mã Chức Vụ</label>
                 <input className="form-control" type="text" name='ma_cv' onChange={handleChangeInput} ></input>
+                <span className='text-danger'>
+                   {errorArrs.ma_cv}
+                </span>
             </div>
             <div className="col-12 form-group">
                 <label>Tên Chức Vụ</label>
                 <input className="form-control" type="text" name='ten_cv' onChange={handleChangeInput}></input>
+                <span className='text-danger'>
+                   {errorArrs.ten_cv}
+                </span>
             </div>
          
         </div>

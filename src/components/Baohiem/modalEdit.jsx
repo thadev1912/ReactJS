@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import _ from 'lodash'; //hỗ trợ check sự tồn tại 
 const ModalEdit = (props) => {
-    const { isOpenModalEdit, baohiemId, ToggleEdit, Update, selectNoiKham, selectNoiCap, selectLoaibhxh } = props;
+    const { isOpenModalEdit, baohiemId, ToggleEdit, Update, selectNoiKham, selectNoiCap, selectLoaibhxh,errorArrs} = props;
     //const [check,setCheck]=useState([]);
     const [baohiem, setBaohiem] = useState({
         id: "",
@@ -73,16 +73,18 @@ const ModalEdit = (props) => {
                             <label>Mã Bảo Hiểm Xã Hội</label>
                             <input className="form-control" type="text" name="id" onChange={handleChangeInput} value={baohiem.id} hidden  ></input>
                             <input className="form-control" type="text" name='ma_bhxh' onChange={handleChangeInput} value={baohiem.ma_bhxh}></input>
+                            <span className='text-danger'>{errorArrs.ma_bhxh}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Mã Nhân Viên</label>
                             <input className="form-control" type="text" name='ma_nv' onChange={handleChangeInput} value={baohiem.ma_nv}></input>
+                            <span className='text-danger'>{errorArrs.ma_nv}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Loại Bảo Hiểm Xã Hội</label>
                             <select className="form-select" name='loai_bhxh' onChange={handleChangeInput}
                                 aria-label="Default select example">
-                                <option selected>Lựa chọn nơi cấp</option>
+                                <option value={''}>Lựa chọn nơi cấp</option>
                                 {selectLoaibhxh.map((item, index) => {
                                     return (
                                         <option key={index} value={item.noicap}
@@ -94,21 +96,24 @@ const ModalEdit = (props) => {
                                 }
 
                             </select>
+                            <span className='text-danger'>{errorArrs.loai_bhxh}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Ngày Cấp</label>
                             <input className="form-control" type="text" name='ngaycap' onChange={handleChangeInput} value={baohiem.ngaycap}></input>
+                            <span className='text-danger'>{errorArrs.ngaycap}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Ngày Hết Hạn</label>
                             <input className="form-control" type="text" name='ngayhethan' onChange={handleChangeInput} value={baohiem.ngayhethan}></input>
+                            <span className='text-danger'>{errorArrs.ngayhethan}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Nơi Cấp</label>
                             <select className="form-select" name='noicap' onChange={handleChangeInput}
 
                                 aria-label="Default select example">
-                                <option selected>Lựa chọn nơi cấp</option>
+                                <option value={''}>Lựa chọn nơi cấp</option>
                                 {selectNoiCap.map((item, index) => {
                                     return (
                                         <option key={index} value={item.noicap}
@@ -120,12 +125,13 @@ const ModalEdit = (props) => {
                                 }
 
                             </select>
+                            <span className='text-danger'>{errorArrs.noicap}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Nơi Khám</label>
                             <select className="form-select" name='noikham' onChange={handleChangeInput}
                                 aria-label="Default select example">
-                                <option selected>Lựa chọn nơi khám</option>
+                                <option value={''}>Lựa chọn nơi khám</option>
                                 {selectNoiKham.map((item, index) => {
                                     return (
                                         <option key={index} value={item.noicap}
@@ -137,10 +143,12 @@ const ModalEdit = (props) => {
                                 }
 
                             </select>
+                            <span className='text-danger'>{errorArrs.noikham}</span>
                         </div>
                         <div className="col-12 form-group">
                             <label>Tiền Đóng BHXH</label>
                             <input className="form-control" type="text" name='tiendong_bhxh' onChange={handleChangeInput} value={baohiem.tiendong_bhxh}></input>
+                            <span className='text-danger'>{errorArrs.tiendong_bhxh}</span>
                         </div>
                     </div>
                 </ModalBody>
