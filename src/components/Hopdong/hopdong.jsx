@@ -5,6 +5,8 @@ import ModalEdit from './modalEdit';
 const Hopdong = () => {
     //Delcare states
     const [hopdong, setHopdong] = useState([]);
+    const [selectLoaihd,setSelectLoaihd]=useState([]);
+    const [selectTinhtrang,setSelectTinhtrang]=useState([]);
     const [hopdongId,setHopdongId]=useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -12,14 +14,18 @@ const Hopdong = () => {
     //Use Effect
     useEffect(() => {
         const getList = async () => {
-            let res = await axios.get(`http://127.0.0.1:8000/api/hopdong`);
+            let res = await axios.get(`http://127.0.0.1:8000/api/hopdong?page=4`);
             if (res) {
-                console.log(res.data);
-                setHopdong(res.data.data);
+                //console.log(res.data);
+                setHopdong(res.data.hopdong.data);
+                setSelectLoaihd(res.data.loaihd);
+                setSelectTinhtrang(res.data.tinhtrang);
             }
         }
         getList();
     }, [refreshKey])
+    //console.log('dữ liệu api hợp đồng là',hopdong)
+    //console.log('dữ liệu api loại hợp đồng là',selectLoaihd)
     //Action
     const handleAdd = () => {
         setIsOpenModal(current => !current)
@@ -105,7 +111,9 @@ const Hopdong = () => {
             <ModalAdd
                 isOpenModal={isOpenModal}
                 Toggle={Toggle}   //truyền sate của nó nhe
-                Store={Store}                
+                Store={Store} 
+                selectLoaihd={selectLoaihd}  
+                selectTinhtrang={selectTinhtrang}               
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -113,6 +121,8 @@ const Hopdong = () => {
             ToggleEdit={ToggleEdit}
             hopdongId={hopdongId}
             Update={Update} 
+            selectLoaihd={selectLoaihd}  
+            selectTinhtrang={selectTinhtrang}  
             />
              }
             <div className="card-header bg-danger text-white">

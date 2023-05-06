@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const ModalAdd = (props) => {
-  const {isOpenModal,Toggle,Store}=props;
+  const {isOpenModal,Toggle,Store,selectTrangthai,selectTrinhdo,selectPhongban,selectChucvu}=props;
   const [nhanvien,setNhanvien]=useState({})
   
   //Functions
@@ -18,7 +18,7 @@ const ModalAdd = (props) => {
        })
      
   }
-  //console.log(nhanvien);
+  console.log(nhanvien);
   const handleStore=()=>
   {
     return Store(nhanvien);
@@ -42,12 +42,14 @@ const ModalAdd = (props) => {
                 <input className="form-control" type="text" name='txt_diachi_nv' onChange={handleChangeInput}></input>
             </div>
             <div className="col-12 form-group">
-                <label>Giới Tính</label>
-                <input className="form-control" type="text" name='txt_gioitinh_nv' onChange={handleChangeInput}></input>
+                <label>Giới Tính</label><br/>
+                {/* <input className="form-control" type="text" name='txt_gioitinh_nv' onChange={handleChangeInput}></input> */}
+                <input className='radio-inline' name="txt_gioitinh_nv" type="radio" value="Nam"  onChange={handleChangeInput}/>Nam
+                <input className='radio-inline'  name="txt_gioitinh_nv" type="radio" value="Nữ"  onChange={handleChangeInput}/>Nữ
             </div>
             <div className="col-12 form-group">
                 <label>Ngày Sinh</label>
-                <input className="form-control" type="text" name='txt_ngaysinh_nv' onChange={handleChangeInput}></input>
+                <input className="form-control" type="date" name='txt_ngaysinh_nv' onChange={handleChangeInput}></input>
             </div>
             <div className="col-12 form-group">
                 <label>Số Điện Thoại</label>
@@ -59,19 +61,63 @@ const ModalAdd = (props) => {
             </div>
             <div className="col-12 form-group">
                 <label>Trạng Thái</label>
-                <input className="form-control" type="text" name='txt_trangthai_nv' onChange={handleChangeInput}></input>
+                {/* <input className="form-control" type="text" name='txt_trangthai_nv' onChange={handleChangeInput}></input> */}
+                <select className="form-select" name='txt_trangthai_nv' onChange={handleChangeInput}
+                            aria-label="Default select example">
+                            <option selected>Lựa chọn Trạng Thái</option>
+                            {selectTrangthai.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.trangthai_nv}>{item.trangthai_nv}</option>
+                                )
+                            })
+                            }
+
+                        </select>
             </div>
             <div className="col-12 form-group">
                 <label>Mã Phòng Ban</label>
-                <input className="form-control" type="text" name='txt_ma_pb' onChange={handleChangeInput}></input>
+                {/* <input className="form-control" type="text" name='txt_ma_pb' onChange={handleChangeInput}></input> */}
+                <select className="form-select" name='txt_ma_pb' onChange={handleChangeInput}
+                            aria-label="Default select example">
+                            <option selected>Lựa chọn Phòng Ban</option>
+                            {selectPhongban.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.ma_pb}>{item.ten_pb}</option>
+                                )
+                            })
+                            }
+
+                        </select>
             </div>
             <div className="col-12 form-group">
                 <label>Mã Chức Vụ</label>
-                <input className="form-control" type="text" name='txt_ma_cv' onChange={handleChangeInput}></input>
+                {/* <input className="form-control" type="text" name='txt_ma_cv' onChange={handleChangeInput}></input> */}
+                <select className="form-select" name='txt_ma_cv' onChange={handleChangeInput}
+                            aria-label="Default select example">
+                            <option selected>Lựa chọn Chức Vụ</option>
+                            {selectChucvu.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.ma_cv}>{item.ten_cv}</option>
+                                )
+                            })
+                            }
+
+                        </select>
             </div>
             <div className="col-12 form-group">
                 <label>Trình Độ</label>
-                <input className="form-control" type="text" name='txt_trinhdo_nv' onChange={handleChangeInput}></input>
+                {/* <input className="form-control" type="text" name='txt_trinhdo_nv' onChange={handleChangeInput}></input> */}
+                <select className="form-select" name='txt_trinhdo_nv' onChange={handleChangeInput}
+                            aria-label="Default select example">
+                            <option selected>Lựa chọn Trình độ</option>
+                            {selectTrinhdo.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.trinhdo_nv}>{item.trinhdo_nv}</option>
+                                )
+                            })
+                            }
+
+                        </select>
             </div>
             <div className="col-12 form-group">
                 <label>Chuyên Ngành</label>

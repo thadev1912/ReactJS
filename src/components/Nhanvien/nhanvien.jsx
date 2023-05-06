@@ -5,6 +5,10 @@ import ModalEdit from './modalEdit';
 const Nhanvien = () => {
     //Delcare states
     const [nhanvien, setNhanvien] = useState([]);
+    const [selectTrinhdo,setSelectTrinhdo]=useState([]);
+    const [selectTrangthai,setSelectTrangthai]=useState([]);
+    const [selectPhongban,setSelectPhongban]=useState([]);
+    const [selectChucvu,setSelectChucvu]=useState([]);
     const [nhanvienId,setNhanvienId]=useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
@@ -15,11 +19,17 @@ const Nhanvien = () => {
             let res = await axios.get(`http://127.0.0.1:8000/api/nhanvien?page=2`);
             if (res) {
                 console.log(res.data);
-                setNhanvien(res.data.data);
+                setNhanvien(res.data.nhanvien.data);
+                setSelectTrangthai(res.data.trangthai);
+                setSelectTrinhdo(res.data.trinhdo);
+                setSelectPhongban(res.data.phongban);
+                setSelectChucvu(res.data.chucvu);
             }
         }
         getList();
-    }, [refreshKey])
+    }, [refreshKey]) 
+    console.log('giá trị select nhân viên nhận được là',nhanvien);
+    console.log('giá trị select phongban nhận được là',selectPhongban);
     //Action
     const handleAdd = () => {
         setIsOpenModal(current => !current)
@@ -105,7 +115,11 @@ const Nhanvien = () => {
             <ModalAdd
                 isOpenModal={isOpenModal}
                 Toggle={Toggle}   //truyền sate của nó nhe
-                Store={Store}                
+                Store={Store}    
+                selectTrangthai={selectTrangthai}
+                selectTrinhdo={selectTrinhdo} 
+                selectChucvu={selectChucvu}
+                selectPhongban={selectPhongban}              
             />
              {isOpenModalEdit &&
             <ModalEdit
@@ -113,10 +127,14 @@ const Nhanvien = () => {
             ToggleEdit={ToggleEdit}
             nhanvienId={nhanvienId}
             Update={Update} 
+            selectTrangthai={selectTrangthai}
+            selectTrinhdo={selectTrinhdo}      
+            selectChucvu={selectChucvu}
+            selectPhongban={selectPhongban}            
             />
              }
             <div className="card-header bg-danger text-white">
-                <h3 className="font-weight-bold ">DANH SÁCH NHAN VIÊN</h3>
+                <h3 className="font-weight-bold ">DANH SÁCH NHÂN VIÊN</h3>
             </div>
             <div className="card-body">
                 <div> <button className=" btn btn-primary mb-3" ><i

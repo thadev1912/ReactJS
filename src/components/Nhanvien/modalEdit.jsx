@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import _ from 'lodash'; //hỗ trợ check sự tồn tại 
 const ModalEdit = (props) => {
-    const { isOpenModalEdit, nhanvienId, ToggleEdit,Update } = props;
+    const { isOpenModalEdit, nhanvienId, ToggleEdit,Update,selectTrangthai,selectTrinhdo,selectChucvu,selectPhongban } = props;
 
     const [nhanvien, setNhanvien] = useState({
         id: "",        
@@ -90,8 +90,9 @@ const ModalEdit = (props) => {
                 <input className="form-control" type="text" name='txt_diachi_nv' onChange={handleChangeInput} value={nhanvien.txt_diachi_nv}></input>
             </div>
             <div className="col-12 form-group">
-                <label>Giới Tính</label>
-                <input className="form-control" type="text" name='txt_gioitinh_nv' onChange={handleChangeInput} value={nhanvien.txt_gioitinh_nv}></input>
+                <label>Giới Tính</label>                
+                <input className='radio-inline' name="txt_gioitinh_nv" type="radio" value="Nam" checked={nhanvien.txt_gioitinh_nv==="Nam"}  onChange={handleChangeInput}/>Nam
+                <input className='radio-inline'  name="txt_gioitinh_nv" type="radio" value="Nữ" checked={nhanvien.txt_gioitinh_nv==="Nữ"}  onChange={handleChangeInput}/>Nữ
             </div>
             <div className="col-12 form-group">
                 <label>Ngày Sinh</label>
@@ -107,19 +108,73 @@ const ModalEdit = (props) => {
             </div>
             <div className="col-12 form-group">
                 <label>Trạng Thái</label>
-                <input className="form-control" type="text" name='txt_trangthai_nv' onChange={handleChangeInput} value={nhanvien.txt_trangthai_nv}></input>
+                {/* <input className="form-control" type="text" name='txt_trangthai_nv' onChange={handleChangeInput} value={nhanvien.txt_trangthai_nv}></input> */}
+                <select className="form-select" name='txt_trangthai_nv' onChange={handleChangeInput}
+                                aria-label="Default select example">
+                                <option selected>Lựa chọn Trạng Thái</option>
+                                {selectTrangthai.map((item, index) => {
+                                    return (
+                                        <option key={index} value={item.trangthai_nv}
+                                            selected={nhanvien.txt_trangthai_nv === item.trangthai_nv}
+                                        >
+                                            {item.trangthai_nv}</option>
+                                    )
+                                })
+                                }
+
+                            </select>
             </div>
             <div className="col-12 form-group">
                 <label>Mã Phòng Ban</label>
-                <input className="form-control" type="text" name='txt_ma_pb' onChange={handleChangeInput} value={nhanvien.txt_ma_pb}></input>
+                {/* <input className="form-control" type="text" name='txt_ma_pb' onChange={handleChangeInput} value={nhanvien.txt_ma_pb}></input> */}
+                <select className="form-select" name='txt_ma_pb' onChange={handleChangeInput}
+                            aria-label="Default select example">
+                            <option selected>Lựa chọn Phòng Ban</option>
+                            {selectPhongban.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.ma_pb}
+                                    selected={nhanvien.txt_ma_pb === item.ma_pb}
+                                    >{item.ten_pb}</option>
+                                )
+                            })
+                            }
+
+                        </select>
             </div>
             <div className="col-12 form-group">
                 <label>Mã Chức Vụ</label>
-                <input className="form-control" type="text" name='txt_ma_cv' onChange={handleChangeInput} value={nhanvien.txt_ma_cv}></input>
+                {/* <input className="form-control" type="text" name='txt_ma_cv' onChange={handleChangeInput} value={nhanvien.txt_ma_cv}></input> */}
+                <select className="form-select" name='txt_ma_cv' onChange={handleChangeInput}
+                            aria-label="Default select example">
+                            <option selected>Lựa chọn Chức Vụ</option>
+                            {selectChucvu.map((item, index) => {
+                                return (
+                                    <option key={index} value={item.ma_cv}
+                                    selected={nhanvien.txt_ma_cv === item.ma_cv}
+                                    >{item.ten_cv}</option>
+                                )
+                            })
+                            }
+
+                        </select>
             </div>
             <div className="col-12 form-group">
                 <label>Trình Độ</label>
-                <input className="form-control" type="text" name='txt_trinhdo_nv' onChange={handleChangeInput} value={nhanvien.txt_trinhdo_nv}></input>
+                {/* <input className="form-control" type="text" name='txt_trinhdo_nv' onChange={handleChangeInput} value={nhanvien.txt_trinhdo_nv}></input> */}
+                <select className="form-select" name='txt_trinhdo_nv' onChange={handleChangeInput}
+                                aria-label="Default select example">
+                                <option selected>Lựa chọn Trình độ</option>
+                                {selectTrinhdo.map((item, index) => {
+                                    return (
+                                        <option key={index} value={item.trinhdo_nv}
+                                            selected={nhanvien.txt_trinhdo_nv === item.trinhdo_nv}
+                                        >
+                                            {item.trinhdo_nv}</option>
+                                    )
+                                })
+                                }
+
+                            </select>
             </div>
             <div className="col-12 form-group">
                 <label>Chuyên Ngành</label>
