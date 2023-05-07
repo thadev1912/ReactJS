@@ -34,6 +34,9 @@ const Header =() =>{
         <li className="nav-item">
         <Link className="navbar-brand text-white" to="/nhanvien">Nhân Viên</Link>
         </li>
+        <li className="nav-item">
+        <Link className="navbar-brand text-white" to="/listNhanvien">Danh Sách Nhân Viên</Link>
+        </li>
       </ul>
       {/* <li className="nav-item nav-link">
       <Link className="navbar-brand" to="/login">Đăng nhập</Link>

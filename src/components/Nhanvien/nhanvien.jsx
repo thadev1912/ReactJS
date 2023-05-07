@@ -17,7 +17,7 @@ const Nhanvien = () => {
     //Use Effect
     useEffect(() => {
         const getList = async () => {
-            let res = await axios.get(`http://127.0.0.1:8000/api/nhanvien?page=3`);
+            let res = await axios.get(`http://127.0.0.1:8000/api/nhanvien`);
             if (res) {
                 console.log(res.data);
                 setNhanvien(res.data.nhanvien.data);
