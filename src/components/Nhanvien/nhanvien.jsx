@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ModalAdd from './modalAdd';
 import ModalEdit from './modalEdit';
+import moment from 'moment';
 const Nhanvien = () => {
     //Delcare states
     const [nhanvien, setNhanvien] = useState([]);
@@ -175,7 +176,7 @@ const Nhanvien = () => {
                                     <td>{item.hoten_nv}</td>
                                     <td >{item.diachi_nv}</td>
                                     <td>{item.gioitinh_nv}</td>
-                                    <td>{item.ngaysinh_nv}</td>
+                                    <td>{moment(item.ngaysinh_nv).format('DD/MM/YYYY')}</td>                                    
                                     <td >{item.sdt_nv}</td>
                                     <td>{item.cccd_nv}</td>
                                     <td>{item.trangthai_nv}</td>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ModalAdd from './modalAdd';
 import ModalEdit from './modalEdit';
-import { wait } from '@testing-library/user-event/dist/utils';
+import moment from 'moment/moment';
+import CurrencyFormat from 'react-currency-format';
 const Baohiem = () => {
     //Delcare states
     const [baohiem, setBaohiem] = useState([]);
@@ -166,11 +167,12 @@ const Baohiem = () => {
                                     <td >{item.ma_bhxh}</td>
                                     <td>{item.ma_nv}</td>
                                     <td >{item.loai_bhxh}</td>
-                                    <td>{item.ngaycap}</td>
-                                    <td >{item.ngayhethan}</td>
+                                    <td>{moment(item.ngaycap).format('DD/MM/YYYY')}</td>  
+                                    <td>{moment(item.ngayhethan).format('DD/MM/YYYY')}</td>                                 
                                     <td>{item.noicap}</td>
                                     <td >{item.noikham}</td>
-                                    <td>{item.tiendong_bhxh}</td>
+                                    {/* <td>{item.tiendong_bhxh}</td> */}
+                                    <CurrencyFormat value={item.tiendong_bhxh} displayType={'text'} thousandSeparator={true} renderText={value => <td>{value} VNĐ</td>}  />
                                     <td> <button onClick={()=>handleEdit(item)}>Sửa</button>||<button onClick={()=>handleDelete(item.id)}>Xóa</button ></td>
                                 </tr>)
                         })

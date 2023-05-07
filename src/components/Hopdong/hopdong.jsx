@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ModalAdd from './modalAdd';
 import ModalEdit from './modalEdit';
+import moment from 'moment/moment';
+import CurrencyFormat from 'react-currency-format';
 const Hopdong = () => {
     //Delcare states
     const [hopdong, setHopdong] = useState([]);
@@ -162,10 +164,11 @@ const Hopdong = () => {
                                     <td >{item.ma_hd}</td>
                                     <td>{item.ma_nv}</td>
                                     <td >{item.heso_luong}</td>
-                                    <td>{item.ngayvao}</td>
+                                    <td>{moment(item.ngayvao).format('DD/MM/YYYY')}</td>                                    
                                     <td>{item.tinhtrang}</td>
                                     <td >{item.loai_hd}</td>
-                                    <td>{item.phu_cap}</td>
+                                    {/* <td>{item.phu_cap}</td> */}
+                                    <CurrencyFormat value={item.phu_cap} displayType={'text'} thousandSeparator={true}  renderText={value => <td>{value} VNĐ</td>} />
                                     <td>{item.ngay_macdinh}</td>
                                     <td >{item.ngay_nghiviec}</td>                                   
                                     <td> <button onClick={()=>handleEdit(item)}>Sửa</button>||<button onClick={()=>handleDelete(item.id)}>Xóa</button ></td>

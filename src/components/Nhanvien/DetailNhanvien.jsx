@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation,Link } from 'react-router-dom';
-
+import moment from 'moment';
+import CurrencyFormat from 'react-currency-format';
 const DetailNhanvien = () => {
     const { state } = useLocation();
     const { nhanvienId } = state || {};
@@ -48,7 +49,7 @@ const DetailNhanvien = () => {
                 <div class="row">
                     <div class="col">
                         <label>Ngày Sinh </label>
-                        <input id="current-pass-control" name="txt_hoten_kh" class="form-control" type="text" value={nhanvienId.ngaysinh_nv}></input>
+                        <input id="current-pass-control" name="txt_hoten_kh" class="form-control" type="text" value={moment(nhanvienId.ngaysinh_nv).format('DD/MM/YYYY')}></input>
 
                     </div>
                     <div class="col">
@@ -109,7 +110,7 @@ const DetailNhanvien = () => {
                     </div>
                     <div class="col">
                         <label>Ngày Vào</label>
-                        <input id="current-pass-control" name="txt_hoten_kh" class="form-control" type="text" value={nhanvienId.ngayvao}></input>
+                        <input id="current-pass-control" name="txt_hoten_kh" class="form-control" type="text" value={moment(nhanvienId.ngayvao).format('DD/MM/YYYY')}></input>
 
                     </div>
                 </div>
