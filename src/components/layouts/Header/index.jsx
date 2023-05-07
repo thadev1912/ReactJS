@@ -4,7 +4,7 @@ import Logout from "../../auth/logout";
 import { useSelector } from "react-redux";
 const Header =() =>{
  
-  const User=useSelector((state)=>state.auth.login.user?.data.username);  //? để tránh trường hợp khi accessToken null
+  const User=useSelector((state)=>state.auth.login.user?.user.name);  //? để tránh trường hợp khi accessToken null
   console.log('tên user là',User);
         return (
             <>

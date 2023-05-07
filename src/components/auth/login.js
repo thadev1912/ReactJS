@@ -8,7 +8,7 @@ const Login = () => {
     const dispatch=useDispatch();
     const [login, setlogin] = useState({
         username: '',
-        password: '',
+        pass: '',
     })
  
     const hanldechangeInput = (e) => {
@@ -23,13 +23,14 @@ const Login = () => {
     const handleLogin=async()=>{
         
          try{
-            let res= await axios.post('http://localhost:8080/user/xulydangnhap',login);
-            if(res.data)
+            let res= await axios.post('http://127.0.0.1:8000/api/check_api',login);
+            if(res.data.status===200)
             {
-                console.log('Xin chào',res.data.data.username);
+                console.log(res.data);
+                //console.log('Xin chào',res.data);
                  alert('Đăng nhập thành công!!!');
-                  dispatch(loginSuccess(res.data));
-                  navigate('/sinhvien');
+                 dispatch(loginSuccess(res.data));
+                 navigate('/phongban');
             }
             else
             {
@@ -64,7 +65,7 @@ const Login = () => {
             </div>
             <div className="mb-3">
                 <label for="exampleInputPassword1" className="form-label">Mật Khẩu</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" name="password" onChange={hanldechangeInput}></input>
+                <input type="password" className="form-control" id="exampleInputPassword1" name="pass" onChange={hanldechangeInput}></input>
             </div>
             <div>
                 <button type="submit" className="btn btn-danger" onClick={handleLogin}>Đăng Nhập</button>
