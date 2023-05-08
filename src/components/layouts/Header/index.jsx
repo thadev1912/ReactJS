@@ -17,7 +17,7 @@ const Header =() =>{
     <div className="collapse navbar-collapse " id="navbarText">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0 text-white">
         <li className="nav-item">
-        <Link className="navbar-brand text-white" to="/sinhvien">Sinh Viên</Link>
+        <Link className="navbar-brand text-white" to="/templete">Templete</Link>
         </li>
         <li className="nav-item">
         <Link className="navbar-brand text-white" to="/phongban">Phòng Ban</Link>
